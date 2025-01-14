@@ -7,8 +7,6 @@ import StackPanel from "../components/stackPanel"
 import BackWithTitle from '@/components/backWithTitle'
 import StackForm from '../components/stackForm'
 
-import styles from "./styles.module.less"
-
 type TargetKey = React.MouseEvent | React.KeyboardEvent | string;
 
 const ProjectDetail = () => {
@@ -118,7 +116,7 @@ const ProjectDetail = () => {
   }
 
   return (
-    <div className={styles.project_detail}>
+    <div>
       <BackWithTitle title={urlSearchName.get('projectName')} handleBack={handleBack} />
       <Card>
         <Tabs

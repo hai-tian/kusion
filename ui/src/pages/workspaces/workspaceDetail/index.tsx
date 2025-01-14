@@ -7,9 +7,9 @@ import YamlEditor from '@/components/yamlEditor';
 import { josn2yaml, yaml2json } from '@/utils/tools'
 import EditYamlDrawer from '../components/editYamlDrawer';
 import MarkdownDrawer from '../components/markdownDrawer';
+import { DEFAULT_WORKSPACE_YAML } from '@/utils/constants';
 
 import styles from './styles.module.less'
-import { DEFAULT_WORKSPACE_YAML } from '@/utils/constants';
 
 const WorkspaceDetail = () => {
   const navigate = useNavigate();

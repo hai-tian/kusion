@@ -1,7 +1,7 @@
 import React from "react";
+import { ArrowLeftOutlined } from "@ant-design/icons";
 
 import styles from "./styles.module.less"
-import { ArrowLeftOutlined } from "@ant-design/icons";
 
 const BackWithTitle = ({ title, handleBack }) => {
   return (

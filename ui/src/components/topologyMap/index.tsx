@@ -6,7 +6,6 @@ import type {
   ModelConfig,
   IAbstractGraph,
 } from '@antv/g6'
-import insertCss from "insert-css"
 import { useLocation } from 'react-router-dom'
 import queryString from 'query-string'
 import Loading from '@/components/loading'
@@ -87,13 +86,6 @@ function fittingString(str: string, maxWidth: number, fontSize: number) {
 }
 
 function getNodeName(cfg: NodeConfig, type: string) {
-  if (type === 'resource') {
-    const [left, right] = cfg?.id?.split(':') || []
-    const leftList = left?.split('.')
-    const leftListLength = leftList?.length || 0
-    const leftLast = leftList?.[leftListLength - 1]
-    return `${leftLast}:${right}`
-  }
   const list = cfg?.label?.split('.')
   const len = list?.length || 0
   return list?.[len - 1] || ''
@@ -102,7 +94,6 @@ function getNodeName(cfg: NodeConfig, type: string) {
 type IProps = {
   topologyLoading?: boolean
   onTopologyNodeClick?: (node: any) => void
-  isResource?: boolean
   tableName?: string
   handleChangeCluster?: (val: any) => void
   selectedCluster?: string
@@ -192,8 +183,6 @@ const TopologyMap = forwardRef((props: IProps, drawRef) => {
   const {
     onTopologyNodeClick,
     topologyLoading,
-    isResource,
-    tableName,
   } = props
   const containerRef = useRef(null)
   const graphRef = useRef<IAbstractGraph | null>(null)
@@ -491,31 +480,12 @@ const TopologyMap = forwardRef((props: IProps, drawRef) => {
     })
   }
 
-  function setHightLight() {
-    graphRef.current.getNodes().forEach(node => {
-      const model: any = node.getModel()
-      const displayName = getNodeName(model, type as string)
-      const isHighLight =
-        type === 'resource'
-          ? model?.data?.resourceGroup?.name === tableName
-          : displayName === tableName
-      if (isHighLight) {
-        graphRef.current?.setItemState(node, 'selected', true)
-      }
-    })
-  }
 
   function drawGraph(topologyData) {
     if (topologyData) {
-      if (type === 'resource') {
-        graphRef.current?.destroy()
-        graphRef.current = null
-      }
       if (!graphRef.current) {
         graphRef.current = initGraph()
         graphRef.current?.read(topologyData)
-
-        setHightLight()
 
         graphRef.current?.on('node:click', evt => {
           const node = evt.item
@@ -565,7 +535,6 @@ const TopologyMap = forwardRef((props: IProps, drawRef) => {
         setTimeout(() => {
           graphRef.current.fitCenter()
         }, 100)
-        setHightLight()
       }
     }
   }
@@ -577,7 +546,7 @@ const TopologyMap = forwardRef((props: IProps, drawRef) => {
   return (
     <div
       className={styles.g6_topology}
-      style={{ height: isResource ? 450 : 400 }}
+      style={{ height: 400 }}
     >
       <div ref={containerRef} className={styles.g6_overview}>
         <div

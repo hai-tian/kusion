@@ -4,8 +4,6 @@ import { Modal, Button, Form, Select, Input, message, Collapse, theme, Radio, Sw
 import { WorkspaceService } from '@kusionstack/kusion-api-client-sdk';
 import { CaretRightOutlined, MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 
-import styles from './styles.module.less';
-
 const RunsForm = ({ open, handleClose, handleSubmit, runsTypes }: any) => {
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
@@ -171,7 +169,6 @@ const RunsForm = ({ open, handleClose, handleSubmit, runsTypes }: any) => {
         <Form.Item name="type" label="Type">
           <Select
             placeholder="Please Select Workspace"
-            className={styles.selectInput}
           >
             {
               Object.entries(runsTypes)?.map(([key, value]: any) => {
@@ -183,7 +180,6 @@ const RunsForm = ({ open, handleClose, handleSubmit, runsTypes }: any) => {
         <Form.Item name="workspace" label="Workspace">
           <Select
             placeholder="Please Select Workspace"
-            className={styles.selectInput}
           >
             {
               workspaceList?.map(item => {
